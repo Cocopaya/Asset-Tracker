@@ -41,20 +41,10 @@ Console.WriteLine("-------------------------------------------------------------
 Console.WriteLine("Office".PadRight(15) + "Type".PadRight(15) + "Brand".PadRight(15) + "Model".PadRight(15) + "Price".PadRight(15) + "Purchase Date".PadRight(20) + "Status");
 Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
 
-static string GetCurrencyCode(Asset.OfficeLocation office)
-{
-    return office switch
-    {
-        Asset.OfficeLocation.Sweden => "SEK",
-        Asset.OfficeLocation.Denmark => "DKK",
-        Asset.OfficeLocation.Norway => "NOK",
-        _ => ""
-    };
-}
 
 foreach (Asset asset in assets)
 {
-    string priceText = $"{asset.LocalPrice} {GetCurrencyCode(asset.Office)}";
+    string priceText = $"{asset.LocalPrice} {asset.CurrencyCode}";
 
     Console.Write(asset.Office.ToString().PadRight(15) + asset.GetTypeName().PadRight(15) + asset.Brand.PadRight(15) + asset.Model.PadRight(15) + priceText.PadRight(15) + asset.PurchaseDate.ToString("yyyy-MM-dd").PadRight(20));
 
