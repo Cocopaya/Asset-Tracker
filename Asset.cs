@@ -1,5 +1,4 @@
-﻿// Asset.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Asset_Tracker
@@ -53,7 +52,6 @@ namespace Asset_Tracker
             return Status.Green;
         }
 
-        // virtual = subklasser FÅR (men måste inte) skriva över denna
         public virtual string GetTypeName()
         {
             return "Asset";
