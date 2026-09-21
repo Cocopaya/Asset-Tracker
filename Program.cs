@@ -2,33 +2,29 @@
 
 List<Asset> assets = new List<Asset>();
 
-Asset assetOne = new Asset(
+Asset assetOne = new Computer(
     Asset.OfficeLocation.Sweden,
-    "Laptop",
     "Dell",
     "XPS 13",
     15000,
     new DateTime(2026, 1, 15)
 );
-Asset assetTwo = new Asset(
+Asset assetTwo = new Computer(
     Asset.OfficeLocation.Denmark,
-    "Desktop",
     "HP",
     "Pavilion",
     20000,
     new DateTime(2026, 6, 15)
 );
-Asset assetThree = new Asset(
+Asset assetThree = new MobilePhone(
     Asset.OfficeLocation.Denmark,
-    "Phone",
     "Apple",
     "iPhone 12",
     30000,
     new DateTime(2024, 2, 1)
 );
-Asset assetFour = new Asset(
+Asset assetFour = new MobilePhone(
     Asset.OfficeLocation.Norway,
-    "Phone",
     "Apple",
     "iPhone 9",
     30000,
@@ -60,7 +56,7 @@ foreach (Asset asset in assets)
 {
     string priceText = $"{asset.LocalPrice} {GetCurrencyCode(asset.Office)}";
 
-    Console.Write(asset.Office.ToString().PadRight(15) + asset.Type.PadRight(15) + asset.Brand.PadRight(15) + asset.Model.PadRight(15) + priceText.PadRight(15) + asset.PurchaseDate.ToString("yyyy-MM-dd").PadRight(20));
+    Console.Write(asset.Office.ToString().PadRight(15) + asset.GetTypeName().PadRight(15) + asset.Brand.PadRight(15) + asset.Model.PadRight(15) + priceText.PadRight(15) + asset.PurchaseDate.ToString("yyyy-MM-dd").PadRight(20));
 
     string statusText = asset.ConditionStatus.ToString();
 
