@@ -1,71 +1,40 @@
 ﻿using Asset_Tracker;
 
-List<Asset> assets = new List<Asset>();
+List<Asset> assets = StaticData.GetAssets();
+AssetManager assetManager = new AssetManager();
 
-Asset assetOne = new Computer(
-    Asset.OfficeLocation.Sweden,
-    "Dell",
-    "XPS 13",
-    15000,
-    new DateTime(2026, 1, 15)
-);
-Asset assetTwo = new Computer(
-    Asset.OfficeLocation.Denmark,
-    "HP",
-    "Pavilion",
-    20000,
-    new DateTime(2026, 6, 15)
-);
-Asset assetThree = new MobilePhone(
-    Asset.OfficeLocation.Denmark,
-    "Apple",
-    "iPhone 12",
-    30000,
-    new DateTime(2024, 2, 1)
-);
-Asset assetFour = new MobilePhone(
-    Asset.OfficeLocation.Norway,
-    "Apple",
-    "iPhone 9",
-    30000,
-    new DateTime(2021, 8, 16)
-);
+bool exit = false;
 
-assets.Add(assetOne);
-assets.Add(assetTwo);
-assets.Add(assetThree);
-assets.Add(assetFour);
-
-Console.WriteLine("ASSET LIST");
-Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
-Console.WriteLine("Office".PadRight(15) + "Type".PadRight(15) + "Brand".PadRight(15) + "Model".PadRight(15) + "Price".PadRight(15) + "Purchase Date".PadRight(20) + "Status");
-Console.WriteLine("---------------------------------------------------------------------------------------------------------------");
-
-
-foreach (Asset asset in assets)
+while (!exit)
 {
-    string priceText = $"{asset.LocalPrice} {asset.CurrencyCode}";
+    Console.WriteLine("Welcome! What do you want to do?");
+    Console.Write("1. Add asset\n2. Show assets\n3. Sort assets\n4. Search assets\n5. Exit\nChoose an option: ");
+    string choice = Console.ReadLine() ?? "";
 
-    Console.Write(asset.Office.ToString().PadRight(15) + asset.GetTypeName().PadRight(15) + asset.Brand.PadRight(15) + asset.Model.PadRight(15) + priceText.PadRight(15) + asset.PurchaseDate.ToString("yyyy-MM-dd").PadRight(20));
-
-    string statusText = asset.ConditionStatus.ToString();
-
-    switch (asset.ConditionStatus)
+    switch (choice)
     {
-        case Asset.Status.Yellow:
-            Console.ForegroundColor = ConsoleColor.Yellow;
+        case "1":
+            Asset asset = assetManager.AddAsset();
+            assets.Add(asset);
+            assetManager.ShowAssets(assets);
             break;
-        case Asset.Status.Red:
-            Console.ForegroundColor = ConsoleColor.Red;
+        case "2":
+            assetManager.ShowAssets(assets);
+            break;
+        case "3":
+            List<Asset> sortedList = assetManager.SortAssets(assets);
+            assetManager.ShowAssets(sortedList);
+            break;
+        case "4":
+            exit = true;
             break;
         default:
-            Console.ForegroundColor = ConsoleColor.White;
-            statusText = "";
+            Console.WriteLine("Invalid choice. Please try again.");
             break;
     }
 
-    Console.WriteLine(statusText);
-    Console.ResetColor();
-}
+    if (exit) break;
 
-Console.ReadLine();
+    Console.Write("(Press Enter to continue)...");
+    Console.ReadLine();
+}
