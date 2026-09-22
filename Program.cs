@@ -26,6 +26,12 @@ while (!exit)
             assetManager.ShowAssets(sortedList);
             break;
         case "4":
+            Console.Write("Search asset by Brand or Model: ");
+            string prompt = Console.ReadLine() ?? "";
+            List<Asset> result = assetManager.SearchAssets(prompt.Trim().ToLower(), assets);
+            assetManager.ShowAssets(result);
+            break;
+        case "5":
             exit = true;
             break;
         default:

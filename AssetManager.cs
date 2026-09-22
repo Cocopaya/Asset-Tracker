@@ -110,5 +110,13 @@ namespace Asset_Tracker
                     return assets;
             }
         }
+        //Search assets by keyword
+        public List<Asset> SearchAssets(string prompt, List<Asset> assets)
+        {
+            List<Asset> result = assets.FindAll(asset =>
+                asset.Model.ToLower().Contains(prompt) ||
+                asset.Brand.ToLower().Contains(prompt));
+            return result;
+        }
     }
 }
